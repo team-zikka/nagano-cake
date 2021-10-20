@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
 
   #管理者側
-  namespace :admin do
+  namespace :admins do
     root to: 'homes#top'
     resources :customers, except: [:new, :destroy, :create]
     resources :items, except: [:destroy ]
