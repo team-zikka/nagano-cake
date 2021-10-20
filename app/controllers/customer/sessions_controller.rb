@@ -1,6 +1,37 @@
-# frozen_string_literal: true
-
 class Customer::SessionsController < Devise::SessionsController
+  
+  before_action :configure_sign_in_params, only: [:create] 
+
+  def after_sign_in_path_for(resource)
+    my_page_path
+  end
+
+  def after_sign_out_path_for(resource)
+    root_path
+  end
+  
+  protected
+
+  def configure_sign_in_params
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
+  end
+    protected
+ # 退会しているかを判断するメソッド
+      def customer_state
+       ## 【処理内容1】 入力されたemailからアカウントを1件取得
+        @customer = Customer.find_by(email: parms[:customer][:email])
+       ## アカウントを取得できなかった場合、このメソッドを終了する
+        return if !@customer
+       ## 【処理内容2】 取得したアカウントのパスワードと入力されたパスワードが一致してるかを判別
+        if 
+         @customer_state = Customer.find_by(params[:id])
+         @customer.valid_password?(params[:customer][:password]) && (@customer_state.is_deleted == false)
+         ## 【処理内容3】is_deletedの値がfalseなら新規登録画面に遷移
+          customer_registration_path
+        else
+        end
+      end
+
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
