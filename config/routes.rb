@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-
+  
   # 顧客用
   # URL /customers/sign_in ...
   devise_for :customers,skip: [:passwords,], controllers: {
-    registrations: "customers/registrations",
-    sessions: 'customers/sessions'
+    registrations: "customer/registrations",
+    sessions: 'customer/sessions'
   }
 
   # 管理者用
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
 
   #管理者側
-  namespace :admin do
+  namespace :admins do
     root to: 'homes#top'
     resources :customers, except: [:new, :destroy, :create]
     resources :items, except: [:destroy ]
