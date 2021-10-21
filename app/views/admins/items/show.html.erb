@@ -21,7 +21,7 @@
           <p>(税抜価格)</p>
         </th>
         <td>
-          <p><%= (@item.price * 1.08) %>円</p>
+          <p><%= (@item.price * 1.08).round %>円</p>
           <p><%= @item.price %>円</p>
         </td>
       </tr>
