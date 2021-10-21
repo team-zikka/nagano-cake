@@ -1,0 +1,8 @@
+<%= attachment_image_tag(@item, :image, size: "200x200" ) %>
+  <h4><%= @item.name %></h4>
+    <%= @item.introduction %>
+      <h5>  <%= (@item.price * 1.08).round  %> </h5>
+        <%= form_with model: @cart_item, url: cart_items_path(@item.id) do |f| %>
+        <%= f.select :count, options_for_select((1..10).to_a), include_blank: "個数選択" %>
+        <%= f.submit "カートに入れる", class: " btn btn-primary" %>
+<% end %>
