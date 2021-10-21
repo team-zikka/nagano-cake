@@ -1,23 +1,24 @@
-<h2>商品編集</h2>
+<h2>商品詳細</h2>
+ <%#= form_with model:@item, url: admins_item_path(@item.id),local:true do |f| %>
  <%= attachment_image_tag(@item, :image, size: "200x200" ) %>
  <table>
    <thead>
      <tr>
        <th>商品名</th>
-       <td><%= f.text_field :name %></td>
+       <td><%= @item.name %></td>
      </tr>
      <tr>
-        <th><%= f.label :"商品説明"%></th>
-        <td><%= f.text_area :introduction %></td>
+        <th>商品説明></th>
+        <td><%= @item.introduction %></td>
       </tr>
       <tr>
-        <th><%= f.label :"ジャンル"%></th>
+        <th>ジャンル</th>
         <td><%= @item.genre.name %></td>
       </tr>
       <tr>
         <th>
-          <p>税抜価格</p>
-          <p>(税込価格)</p>
+          <p>税込価格</p>
+          <p>(税抜価格)</p>
         </th>
         <td>
           <p><%= (@item.price * 1.08).round %>円</p>
@@ -29,10 +30,11 @@
         <td>
           <% if @item.is_active == true %>
             <p>販売中</p>
-          <% elsif @item.is_active == false %>
+          <% elsif @item.is_active == false %>s
             <p>販売停止中</p>
+          <% end %>
         </td>
       </tr>
    </thead>
  </table>
- <%= link_to "編集する", edit_admin_item_path(@item), class: "btn btn-success" %>
+ <%= link_to "編集する", edit_admins_item_path(@item), class: "btn btn-success" %>
