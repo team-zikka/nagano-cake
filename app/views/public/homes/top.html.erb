@@ -1,2 +1,46 @@
-<H2>トップページ</H2>
-<%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: "header_btn glyphicon glyphicon-log-out" %>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-3">
+      <%= render 'books/userinfo',book: @book, user: @user %>
+    </div>
+
+    <div class="col-md-8 offset-md-1">
+      <div class="row">
+        <div class="col-md-8">
+          <%= image_tag "Nagano-cake-top.png" %>
+        </div>
+      </div>
+
+      <div class="container pull-left table-responsive"><
+      　<div class="row">
+      　 <div class="col-md-8">
+          <table class="table table-hover table-inverse">
+            <h2>新着商品</h2>
+            <thead>
+              <tr>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @items.each do |item| %>
+                <tr>
+                  <td>
+                    <%= link_to item_path(item.id) do %>
+                    <%= attachment_image_tag item, :item_image, :fill, 100, 100, format: 'jpeg' %>
+                    <% end %>
+                  </td>
+                  <td><%= link_to item.name, item_path(item.id) %></td>
+                  <td><%= item.price %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+    　　　　</div>
+    　　　</div>
+      </div>
+    </div>
+      
+  </div>
+</div>

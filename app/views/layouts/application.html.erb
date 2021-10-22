@@ -8,25 +8,31 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <header>
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
       <nav class="navbar navbar-expand-lg navbar-dark bg-light">
         <div class="container">
-          <nav class="nav navbar-nav navbar-left title">
+
+
+          <nav class="navbar-brand p-2">
             <!--サイトタイトルはロゴ画像に差し替え予定-->
-            <% if admin_signed_in? %>
-            <%= link_to "NaganoCAKE", admins_root_path %>
-            <% else %>
-            <%= link_to "NaganoCAKE", root_path %>
-            <% end %>
+              <%= link_to root_path do %>
+              <%= image_tag "Nagano-cake-logo.png", :size => "110x110" %>
+              <% end %>
           </nav>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-light">
-        <div class="container">
+
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          
+
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <% if customer_signed_in? %>
+                <li id="youkoso">ようこそ、<%= current_customer.last_name %>さん！</li>
+                <li><input name="search" placeholder="search　🔍"></li>
+              <% end %>
+            </ul>
+
             <ul class="navbar-nav ml-auto">
               <!--顧客ログイン時-->
               <% if customer_signed_in? %>
@@ -36,11 +42,11 @@
                 <li><%= link_to " ログアウト", destroy_customer_session_path, method: :delete ,class: "btn btn-warning mr-3"%></li>
 　　　　　　　<!--管理者ログイン時-->
               <% elsif admin_signed_in? %>
-                <li><%= link_to " 商品一覧", items_path,class: "btn btn-warning mr-3"%></li>
-                <li><%= link_to " 会員一覧", admins_customers_path,class: "btn btn-warning mr-3"%></li>                
+                <li><%= link_to " 商品一覧", admins_items_path,class: "btn btn-warning mr-3"%></li>
+                <li><%= link_to " 会員一覧", admins_customers_path,class: "btn btn-warning mr-3"%></li>
                 <li><%= link_to " 注文履歴一覧", admins_root_path,class: "btn btn-warning mr-3"%></li>
-                <li><%= link_to " ジャンル一覧", admins_genres_path,class: "btn btn-warning mr-3"%></li>                
-                <li><%= link_to " ログアウト", destroy_customer_session_path, method: :delete ,class: "btn btn-warning mr-3"%></li>
+                <li><%= link_to " ジャンル一覧", admins_genres_path,class: "btn btn-warning mr-3"%></li>
+                <li><%= link_to " ログアウト", destroy_admin_session_path, method: :delete ,class: "btn btn-warning mr-3"%></li>
               <!--ログイン前-->
               <% else %>
                 <li><%= link_to " About", about_path ,class: "btn btn-warning mr-3"%></li>
@@ -48,12 +54,17 @@
                 <li><%= link_to " 新規登録", new_customer_registration_path ,class: "btn btn-warning mr-3"%></li>
                 <li><%= link_to " ログイン", new_customer_session_path ,class: "btn btn-warning mr-3"%></li>
               <% end %>
-              
             </ul>
           </div>
+
         </div>
       </nav>
     </header>
+    <main>
     <%= yield %>
+    </main>
+    <footer class="fixed-bottom">
+      <p class="text-right">© All rights reserved by チーム実家.</p>
+    </footer>
   </body>
 </html>
