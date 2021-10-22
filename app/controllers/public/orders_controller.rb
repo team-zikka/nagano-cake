@@ -5,6 +5,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
+    #@orders = Order.new
     @item = Item.find(params[:item_id])
     @order_item = @item.oeder.new(order_params)
   end
