@@ -13,6 +13,7 @@ class Order < ApplicationRecord
   validates :payment_method, presence: true
   validates :customer_id, presence: true
 
-
+  enum payment_method: { credit_card: 0, transfer: 1 }
+  enum status: { wait: 0, confirm: 1, production: 2, ready_to_ship: 3, shipped: 4 }
 
 end
