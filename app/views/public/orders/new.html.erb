@@ -1,6 +1,6 @@
 <h2>注文情報入力</h2>
 
-<%= form_with model: @customer, url: confirm_orders_path, method: :post, local: true do |f| %>
+<%= form_with model: @order, url: confirm_orders_path, method: :post, local: true do |f| %>
 
 <%= f.label :payment_method, "支払い方法" %>
 <br>
@@ -21,7 +21,7 @@
 <br>
 <%= f.radio_button :address_option, 1 %>
 <%= f.label :order_address, "登録済住所から選択" %><br >
-<%= f.collection_select :address , Address.all, :id, :address , :include_blank => "選択してください" %>
+<%= f.collection_select :address_key , Address.all, :id, :address , :include_blank => "選択してください" %>
 <br>
 <%= f.radio_button :address_option, 2 %>
 <%= f.label :order_address, "新しいお届け先" %>
@@ -31,12 +31,12 @@
 <%= f.text_field :postal_code, placeholder:"0000000" %>
 <br>
 
-<%= f.label :order_address, "住所" %>
-<%= f.text_field :order_address, placeholder:"東京都渋谷区代々木神園町0-0" %>
+<%= f.label :address, "住所" %>
+<%= f.text_field :address, placeholder:"東京都渋谷区代々木神園町0-0" %>
 <br>
 
-<%= f.label :order_address, "宛名" %>
-<%= f.text_field :order_address, placeholder:"令和道子" %>
+<%= f.label :name, "宛名" %>
+<%= f.text_field :name, placeholder:"令和道子" %>
 <br>
 
 <%= f.submit "確認画面へ進む" , class:"btn btn-primary" %>
