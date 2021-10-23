@@ -20,7 +20,13 @@
               <% end %>
             </td>
             <td><%= customer.email %></td>
-            <td><%= customer.is_daleted %></td>
+            <td>
+              <% if customer.is_daleted == false %>
+               <p>有効</p>
+              <% elsif customer.is_daleted == true %>
+               <p>退会</p>
+              <% end %>
+            </td>
           </tr>
           <% end %>
         </tbody>

@@ -29,9 +29,15 @@
 　      <th><%= @customer.email %></th>
 　    </tr>
 　    <tr>
-　      <th>会員ステータス</th>
-　      <th><%= @customer.is_daleted %></th>
-　    </tr>
+        <th>会員ステータス</th>
+        <td>
+          <% if @customer.is_daleted == false %>
+            <p>有効</p>
+          <% elsif @customer.is_daleted == true %>
+            <p>退会</p>
+          <% end %>
+        </td>
+      </tr>
 　    <tr>
 　      <th></th>
 　      <th>

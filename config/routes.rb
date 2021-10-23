@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
-  
+
   # 顧客用
   # URL /customers/sign_in ...
-  devise_for :customers,skip: [:passwords,], controllers: {
+  devise_for :customers,skip: [:passwords, :registrations], controllers: {
     registrations: "customer/registrations",
     sessions: 'customer/sessions'
   }
+  devise_scope :customer do
+    get 'signup', to: 'customer/registrations#new', as: :new_customer_registration
+    post 'signup', to: 'customer/registrations#create', as: :customer_registration
+  end
 
   # 管理者用
   # URL /admin/sign_in ...
