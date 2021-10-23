@@ -1,0 +1,44 @@
+<h2>注文情報入力</h2>
+
+<%= form_with model: @order, url: confirm_orders_path, method: :post, local: true do |f| %>
+
+<%= f.label :payment_method, "支払い方法" %>
+<br>
+<%= f.radio_button :payment_method,:クレジットカード,  checked: "checked" %>
+<%= f.label :payment_method, "クレジットカード" %>
+<br>
+<%= f.radio_button :payment_method, :銀行振込 %>
+<%= f.label :payment_method, "銀行振込" %>
+<br>
+
+<%= f.label :address, "お届け先" %>
+<br>
+<%= f.radio_button :address_option, 0, checked: "checked" %>
+<%= f.label :order_address, "ご自身の住所" %>
+<%= @customer.postal_code %>
+<%= @customer.address %>
+<%= @customer.full_name %>
+<br>
+<%= f.radio_button :address_option, 1 %>
+<%= f.label :order_address, "登録済住所から選択" %><br >
+<%= f.collection_select :address_key , Address.all, :id, :address , :include_blank => "選択してください" %>
+<br>
+<%= f.radio_button :address_option, 2 %>
+<%= f.label :order_address, "新しいお届け先" %>
+<br>
+
+<%= f.label :postal_code, "郵便番号" %>
+<%= f.text_field :postal_code, placeholder:"0000000" %>
+<br>
+
+<%= f.label :address, "住所" %>
+<%= f.text_field :address, placeholder:"東京都渋谷区代々木神園町0-0" %>
+<br>
+
+<%= f.label :name, "宛名" %>
+<%= f.text_field :name, placeholder:"令和道子" %>
+<br>
+
+<%= f.submit "確認画面へ進む" , class:"btn btn-primary" %>
+
+<% end %>
