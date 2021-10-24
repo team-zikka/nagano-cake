@@ -1,6 +1,6 @@
-class Admin::OrdersController < ApplicationController
+class Admins::OrdersController < ApplicationController
 
-	before_action :authenticate_admin!
+	# before_action :authenticate_admin!
 
   def show
   	# IDごとの注文内容を取得
@@ -15,7 +15,7 @@ class Admin::OrdersController < ApplicationController
 		   flash[:success] = "注文ステータスを変更しました"
 		   redirect_to admins_order_path(@order)
 		else
-		   render "show"
+		   render :show
 		end
 	end
 
