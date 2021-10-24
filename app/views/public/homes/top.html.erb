@@ -2,46 +2,37 @@
 <div class="container">
   <div class="row">
 
-
-    <div class="col-md-3">
+    <div class="col-md-2">
+      ジャンルのテンプレート
     </div>
-
-
     <div class="col-md-8 offset-md-1">
-      <div class="row">
-        <div class="col-md-8">
-          <%= image_tag "nagano-cake-top.png" %>
-        </div>
-      </div>
-
-      <div class="container pull-left table-responsive">
-      　<div class="row">
-      　 <div class="col-md-8">
-          <table class="table table-hover table-inverse">
-            <h2>新着商品</h2>
-            <thead>
-              <tr>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @items.each do |item| %>
-                <tr>
-                  <td>
-                    <%= link_to item_path(item.id) do %>
-                    <%= attachment_image_tag item, :image, :fill, 100, 100, format: 'jpeg' %>
-                    <% end %>
-                  </td>
-                  <td><%= link_to item.name, item_path(item.id) %></td>
-                  <td><%= item.price %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-    　　　　</div>
-    　　　</div>
+        <%= image_tag "nagano-cake-top.png", :size => "500x300"  %>
+        <h2>新着商品</h2>
+    　<div class="row">
+    　   <div class="col-md-8"  >
+          <div class="d-flex">
+            <% @items.each do |item| %>
+              <table class="table table-hover table-inverse ">
+                <tbody>
+                    <tr>
+                      <td>
+                        <%= link_to item_path(item.id) do %>
+                        <%= attachment_image_tag item, :image, :fill, 100, 100, format: 'jpeg' %>
+                        <% end %>
+                        <%= link_to item.name, item_path(item.id) %><br>
+                        <% if item.is_active == true %>
+                          ¥<%= item.price %>
+                        <% elsif item.is_active == false %>
+                          売り切れ中
+                        <% end %>
+                      </td>
+                    </tr>
+                </tbody>
+              </table>
+            <% end %>
+          </div>
+  　　　　</div>
       </div>
     </div>
-
   </div>
 </div>
