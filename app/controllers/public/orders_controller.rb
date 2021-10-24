@@ -2,12 +2,18 @@ class Public::OrdersController < ApplicationController
 
   def new
     @customer = current_customer
-    @order = Order.new
+    if @customer.cart_items.blank?
+      flash[:warning] = "カートが空です"
+      redirect_to cart_items_path
+    else
+      @order = Order.new
+    end
   end
 
   def confirm
     @cart_item = current_customer.cart_items
-    @order = Order.new
+    @order = Order.new(order_params)
+
     #現在の登録住所
     if params[:order][:address_option] == "0"
       @order.postal_code = current_customer.postal_code
@@ -38,13 +44,11 @@ class Public::OrdersController < ApplicationController
     @order.customer_id = current_customer.id
     @order.save
 
-    @order_detail = OrderDetail.new
-    @order_detail.order_id = @order.id
 
-    cart_item = CartItem.new
-    cart_item.customer_id = current_customer.id
-    cart_items = CartItem.all
+    cart_items = current_customer.cart_items
      cart_items.each do |cart_item|
+        @order_detail = OrderDetail.new
+        @order_detail.order_id = @order.id
         @order_detail.item_id = cart_item.item.id
         @order_detail.item.name = cart_item.item.name
         @order_detail.price = cart_item.item.price
@@ -55,8 +59,18 @@ class Public::OrdersController < ApplicationController
      redirect_to complete_orders_path
   end
 
+  def index
+    @customer = current_customer
+		@orders = @customer.orders
+  end
+
+  def show
+    @order = Order.find(params[:id])
+    @order_details = @order.order_details
+  end
+
   private
   def order_params
-    params.require(:order).permit(:postal_code, :address, :name, :payment_method, :shipping_cost, :total_payment)
+    params.require(:order).permit(:postal_code, :address, :name, :payment_method, :shipping_cost, :total_payment, :customer_id, :status)
   end
 end

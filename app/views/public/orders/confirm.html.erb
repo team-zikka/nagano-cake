@@ -37,7 +37,7 @@
 
     <div>
         <h3>支払方法</h3>
-        <%= @order.payment_method.to_s %>
+        <%= @order.payment_method_i18n %>
 
     </div>
     <div>
@@ -48,7 +48,7 @@
     </div>
 
     <%= form_with model: @order, url: orders_path, method: :POST, local: true do |f| %>
-      <%= f.hidden_field :customer_id %>
+      <%= f.hidden_field :customer_id, :value => current_customer.id %>
       <%= f.hidden_field :payment_method %>
       <%= f.hidden_field :total_payment %>
       <%= f.hidden_field :shipping_cost %>
