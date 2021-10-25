@@ -1,8 +1,9 @@
-<div class="container px-5 px-sm-0">
+<div class="container">
   <div class="row">
-      <h2>会員一覧</h2>
+    <div class="col-md-12">
+      <h2 class="mt-4 bg-light w-25 text-center">会員一覧</h2>
       <table class="table text-center">
-        <thead class="bg-secondary">
+        <thead class="bg-warning">
           <tr>
             <th>会員ID</th>
             <th>氏名</th>
@@ -22,7 +23,7 @@
             <td><%= customer.email %></td>
             <td>
               <% if customer.is_daleted == false %>
-               <p>有効</p>
+               <p class="text-success">有効</p>
               <% elsif customer.is_daleted == true %>
                <p>退会</p>
               <% end %>
@@ -31,5 +32,6 @@
           <% end %>
         </tbody>
       </table>
+    </div>
   </div>
 </div>
