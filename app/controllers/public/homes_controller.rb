@@ -3,6 +3,7 @@ class Public::HomesController < ApplicationController
   end
 
   def top
-    @items = Item.all
+    @genres = Genre.all
+    @items = Item.limit(4).order(:created_time)
   end
 end
