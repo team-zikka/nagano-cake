@@ -1,5 +1,5 @@
 class Admins::GenresController < ApplicationController
- #before_action :authenticate_admin!
+ before_action :authenticate_admin!
 
   def index
    @genres = Genre.all
@@ -11,7 +11,8 @@ class Admins::GenresController < ApplicationController
    if @genre.save
     redirect_to admins_genres_path
    else
-    render admins_genres_path
+    flash[:waning] = "※ジャンル名を入力してください"
+    redirect_to admins_genres_path
    end
   end
 
@@ -24,7 +25,8 @@ class Admins::GenresController < ApplicationController
    if @genre.update(genre_params)
     redirect_to admins_genres_path
    else
-    render :edit
+    flash[:warning] = "※ジャンル名を入力してください"
+    redirect_to edit_admins_genre_path
    end
   end
 

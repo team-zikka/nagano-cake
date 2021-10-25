@@ -1,65 +1,84 @@
-<h2>注文履歴詳細</h2>
-<h5>注文情報</h5>
-<table class="table table-bordered ">
-		<tr>
-			<th>注文日</th>
-			<td><%= @order.created_at.strftime('%Y年%m月%d日') %></td>
-		</tr>
-		<tr>
-			<th>配送先</th>
-			<td>
-				〒<%= @order.postal_code %><br>
-				<%= @order.address %><br>
-				<%= @order.name %>様
-			</td>
-		</tr>
-		<tr>
-			<th>支払い方法</th>
-			<td><%= @order.payment_method_i18n %></td>
-		</tr>
-		<tr>
-			<th>ステータス</th>
-			<td><%= @order.status_i18n %></td>
-		</tr>
-</table>
-
-<h5>請求情報</h5>
-<table class="table table-bordered ">
-      <thead>
-        <tr>
-         <th>送料</th>
-         <th><%= @order.shipping_cost %></th>
-         <th>商品合計</th>
-          <th><%= @order.total_payment - @order.shipping_cost %></th>
-           <th>請求金額</th>
-          <th><%= @order.total_payment %></th>
-        </tr>
-     </thead>
-</table>
-
-<h5>注文内容</h5>
-<table class="table table-hover table-inverse">
-      <thead>
-        <tr>
-         <th>商品名</th>
-         <th>単価(税込)</th>
-         <th>個数</th>
-         <th>小計</th>
-        </tr>
-      </thead>
-      <% @sum = 0 %>
-      <% @order_details.each do |order_detail| %>
-      <tbody>
-        <td><%= order_detail.item.name %></td>
-        <td><%= (order_detail.item.price * 1.08).round %></td>
-        <td><%= order_detail.amount.to_i %></td>
-        <td><%= (order_detail.item.price * 1.08 * order_detail.amount).round %></td>
-        <% @sum += (order_detail.item.price * 1.08 * order_detail.amount).round %>
-      <% end %>
-      </tbody>
-    </table>
-<hr>
-<%= link_to orders_path(id: @order.customer_id) do %>
-	<span class="glyphicon glyphicon-chevron-left">注文一覧に戻る</span>
-<% end %>
+<div class="cotainer">
+    <div class="row" style="width:90%; margin:10px, 0, 0, 0 auto;">
+        <div class="col-md-2 offset-md-1">
+            <br >
+            <h5 style="background-color:#FFF8DC ">&emsp;注文履歴詳細</h5>
+        </div>
+    </div>
+    <div class="row" style="margin:0 auto;">
+        <div class="table-responsive col-md-7">
+            <strong>注文情報</strong>
+            <table class="table table-bordered ">
+                <thead class="thead-light">
+                    <tr>
+                      <th>注文日</th>
+                      <td><%= @order.created_at.strftime('%Y年%m月%d日') %></td>
+                    </tr>
+                    <tr>
+                      <th>配送先</th>
+                      <td>
+                         〒<%= @order.postal_code %><br>
+                         <%= @order.address %><br>
+                         <%= @order.name %>様
+		              </td>
+		            </tr>
+		            <tr>
+		              <th>支払い方法</th>
+		              <td><%= @order.payment_method_i18n %></td>
+		            </tr>
+		            <tr>
+			          <th>ステータス</th>
+			          <td><%= @order.status_i18n %></td>
+		            </tr>
+		         </thead>
+		    </table>
+		</div>
+        <div class="table-responsive col-md-4">
+            <strong>請求情報</strong>
+            <table class="table table-bordered ">
+                <thead class="thead-light">
+                    <tr>
+                        <th>送料</th>
+                        <td><%= @order.shipping_cost %></td>
+                    </tr>
+                    <tr>
+                        <th>商品合計</th>
+                        <td><%= @order.total_payment - @order.shipping_cost %></td>
+                    </tr>
+                    <tr>
+                        <th><strong>ご請求金額</strong></th>
+                        <td><%= @order.total_payment %></td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="row" style="margin:0 auto;">
+        <div class="table-responsive col-md-8">
+            <strong>注文内容</strong>
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>商品名</th>
+                        <th>単価(税込)</th>
+                        <th>個数</th>
+                        <th>小計</th>
+                    </tr>
+                </thead>
+                <% @sum = 0 %>
+                <% @order_details.each do |order_detail| %>
+                <tbody>
+                    <td><%= order_detail.item.name %></td>
+                    <td><%= (order_detail.item.price * 1.08).round %></td>
+                    <td><%= order_detail.amount.to_i %></td>
+                    <td><%= (order_detail.item.price * 1.08 * order_detail.amount).round %></td>
+                    <% @sum += (order_detail.item.price * 1.08 * order_detail.amount).round %>
+                <% end %>
+                </tbody>
+            </table>
+        </dv>
+    </div>
+    <div class="text-right" style="width:90%; margin:2% auto;">
+        <%= link_to "注文一覧へ戻る", orders_path, class:"btn btn-primary" %>
+    </div>
 </div>

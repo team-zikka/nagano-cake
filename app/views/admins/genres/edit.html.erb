@@ -1,9 +1,19 @@
-<h2>ジャンル編集</h2>
-<div>
-<%= form_with model: @genre, url: admins_genre_path, local:true do |f| %>
-    <div class="form-group">
-      <label>ジャンル名</label>
-      <%= f.text_field :name, class: "form-control genre-name", placeholder:"ジャンル名" %>　<%= f.submit '変更を保存' %>
+<div class="cotainer">
+    <div class="row" style="width:90%; margin:2% auto;">
+      <div class="col-md-2 offset-md-1">
+        <h5 style="background-color:#FFF8DC ">&emsp;ジャンル編集</h5>
+      </div>
     </div>
-<% end %>
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <%= flash[:warning] %><br >
+        <%= form_with model: @genre, url: admins_genre_path, local:true do |f| %>
+          <div class="form-group">
+          　<th>ジャンル名</th>
+       　  　<%= f.text_field :name, class:"col-xs-5", placeholder:"ジャンル名" %>
+       　  　<%= f.submit '変更を保存', class:"btn btn-success"%>
+      　  </div>
+        <% end %>
+      </div>
+    </div>
 </div>

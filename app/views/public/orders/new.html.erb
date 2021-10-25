@@ -1,43 +1,72 @@
-<h2>注文情報入力</h2>
+<div id="error_explanation"></div>
+  <% if @order.errors.any? %>
+  <h3><%= @order.errors.count %>errors prohibited this obj from being saved:</h3>
+   <ul>
+    <% @order.errors.full_messages.each do |message| %>
+     <li><%= message %></li>
+    <% end %>
+   </ul>
+  <% end %>
+</div>
 
-<%= form_with model: @order, url: confirm_orders_path, method: :post, local: true do |f| %>
+<div class="cotainer">
+    <div class="row" style="width:90%; margin:0 auto;">
+      <div class="col-md-2 offset-md-1">
+        <br >
+        <h5 style="background-color:#FFF8DC ">&emsp;注文情報入力</h5>
+      </div>
+    </div>
 
-<%= f.label :payment_method, "支払い方法" %>
-<br>
-<%= f.radio_button :payment_method, :credit_card,  checked: "checked" %>
-<%= f.label :payment_method, "クレジットカード" %>
-<br>
-<%= f.radio_button :payment_method, :transfer %>
-<%= f.label :payment_method, "銀行振込" %>
-<br>
+        <div class="col-md-10 offset-md-1">
+        <%= form_with model: @order, url: confirm_orders_path, method: :post, local: true do |f| %>
+            <strong><%= f.label :payment_method, "支払い方法" %></strong>
+            <br >
+            <div>
+             &emsp;<%= f.radio_button :payment_method, :credit_card,  checked: "checked" %>
+             <%= f.label :payment_method, "クレジットカード" %>
+             <br>
+              &emsp;<%= f.radio_button :payment_method, :transfer %>
+              <%= f.label :payment_method, "銀行振込" %>
+            </div>
+            <br >
 
-<%= f.label :address, "お届け先" %>
-<br>
-<%= f.radio_button :address_option, 0, checked: "checked" %>
-<%= f.label :order_address, "ご自身の住所" %>
-<%= @customer.postal_code %>
-<%= @customer.address %>
-<%= @customer.full_name %>
-<br>
+            <strong><%= f.label :address, "お届け先" %></strong>
+            <br >
+            <div>
+              &emsp;<%= f.radio_button :address_option, 0, checked: "checked" %>
+              <%= f.label :order_address, "ご自身の住所" %><br >
+              &emsp;&emsp;<%= @customer.postal_code %>
+              &nbsp;<%= @customer.address %><br >
+              &emsp;&emsp;<%= @customer.full_name %>
+            </div>
+            <br >
 
-<%= f.radio_button :address_option, 1 %>
-<%= f.label :order_address, "登録済住所から選択" %><br >
-<%= f.collection_select :address_key , Address.all, :id, :address , :include_blank => "選択してください" %>
-<br>
+            <div>
+              &emsp;<%= f.radio_button :address_option, 1 %>
+              <%= f.label :order_address, "登録済住所から選択" %><br >
+              &emsp;&emsp;<%= f.collection_select :address_key , Address.all, :id, :address , :include_blank => "選択してください" %>
+            </div>
+            <br >
+            <div>
+              &emsp;<%= f.radio_button :address_option, 2 %>
+              <%= f.label :order_address, "新しいお届け先" %>
+            </div>
+            <div class="small">
+              &emsp;&emsp;&emsp;<%= f.label :postal_code, "郵便番号(ハイフンなし)" %>
+              &emsp;<%= f.text_field :postal_code, placeholder:"0000000" %>
+              <br>
+              &emsp;&emsp;&emsp;<%= f.label :address, "住所" %>
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<%= f.text_field :address, class: "col-xs-5", placeholder:"東京都渋谷区代々木神園町0-0" %>
+              <br>
+              &emsp;&emsp;&emsp;<%= f.label :name, "宛名" %>
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<%= f.text_field :name, placeholder:"令和道子" %>
+            </div>
+            <br>
 
-<%= f.radio_button :address_option, 2 %>
-<%= f.label :order_address, "新しいお届け先" %>
-<br>
-<%= f.label :postal_code, "郵便番号" %>
-<%= f.text_field :postal_code, placeholder:"0000000" %>
-<br>
-<%= f.label :address, "住所" %>
-<%= f.text_field :address, placeholder:"東京都渋谷区代々木神園町0-0" %>
-<br>
-<%= f.label :name, "宛名" %>
-<%= f.text_field :name, placeholder:"令和道子" %>
-<br>
-
-<%= f.submit "確認画面へ進む" , class:"btn btn-primary" %>
-
-<% end %>
+            <div class="text-center" style="width:90%; margin:2% auto;">
+            <%= f.submit "確認画面へ進む", class:"btn btn-primary" %>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
