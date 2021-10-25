@@ -1,4 +1,7 @@
 class Public::CustomersController < ApplicationController
+
+  before_action :authenticate_customer!
+
   def show
     @customer = current_customer
   end
@@ -9,8 +12,11 @@ class Public::CustomersController < ApplicationController
 
   def update
     @customer = current_customer
-    @customer.update(customer_params)
-    redirect_to my_page_path
+    if @customer.update(customer_params)
+       redirect_to my_page_path
+    else
+      render("public/customers/edit")
+    end
   end
 
   def confirm
