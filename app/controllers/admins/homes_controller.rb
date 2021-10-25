@@ -4,6 +4,6 @@ class Admins::HomesController < ApplicationController
 
   def top
     @order = Order.find_by(id: params[:id])
-    @orders = Order.all #ID同士を紐づける
+    @orders = Order.all.page(params[:page]).per(10) #ID同士を紐づける
   end
 end

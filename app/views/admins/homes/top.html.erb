@@ -1,5 +1,4 @@
 
-<div class="row">
   <div class="container">
   　<div class="row">
   　 <div class="col-md-8 offset-md-2">
@@ -17,18 +16,19 @@
           <tbody>
             <% @orders.each do |order| %>
               <tr>
-                <td><%= link_to order.created_at, admins_order_path(order.id) %></td>
-                <td><%= link_to (order.customer.last_name)+(order.customer.first_name) %></td>
+                <td><%= link_to order.created_at.strftime("%Y-%m-%d %H:%M:%S"), admins_order_path(order.id) %></td>
+                <td><%= link_to (order.customer.last_name)+(order.customer.first_name), admins_customer_path(order.id) %></td>
                 <% @sum = 0 %>
                 <% order.order_details.each do |order_detail| %>
                   <% @sum += order_detail.amount %>
                 <% end %>
                 <td><%= @sum %></td>
-                <td><%= order.status %></td>
+                <td><%= order.status_i18n %></td>
               </tr>
             <% end %>
           </tbody>
         </table>
+        <div class="text-right"><%= paginate @orders %></div>
 　　　</div>
 　　</div>
   </div>

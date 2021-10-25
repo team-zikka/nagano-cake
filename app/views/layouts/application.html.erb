@@ -27,9 +27,9 @@
 
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
+              <li><input name="search" placeholder="search　🔍"></li>
               <% if customer_signed_in? %>
-                <li id="youkoso">ようこそ、<%= current_customer.last_name %>さん！</li>
-                <li><input name="search" placeholder="search　🔍"></li>
+                <li id="youkoso">　　ようこそ、<%= current_customer.last_name %>さん！</li>
               <% end %>
             </ul>
 

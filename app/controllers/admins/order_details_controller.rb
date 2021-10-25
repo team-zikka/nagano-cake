@@ -7,15 +7,13 @@ class Admins::OrderDetailsController < ApplicationController
 		@order = @order_detail.order
 		@order_detail.update(order_detail_params)
 
-		if @order_detail.making_status == "製作中"
-			@order.update(order_status: 2)
-
-		elsif @order.order_details.count ==  @order.order_details.where(making_status: "製作完了").count
-			@order.update(order_status: 3)
+    if @order.order_details.count ==  @order.order_details.where(making_status: 3).count
+		 @order.update(status: 3)
+		else @order_detail.making_status == "makeing_now"
+		 @order.update(status: 2)
 		end
 		redirect_to admins_order_path(@order_detail.order)
-	end
-
+  end
 
 	private
 
