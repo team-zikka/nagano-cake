@@ -19,6 +19,7 @@ class Admins::CustomersController < ApplicationController
     if @customer.update(customer_params)
        redirect_to admins_customer_path(@customer)
     else
+       flash[:warning] = "※すべての項目を入力してください"
        render("admins/customers/edit")
     end
   end
