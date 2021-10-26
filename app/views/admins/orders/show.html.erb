@@ -48,9 +48,9 @@
         <% @order_details.each do |order_detail| %>
           <tr>
             <td><%= order_detail.item.name %></td>
-            <td><%= order_detail.price %></td>
+            <td><%= (order_detail.price * 1.08).round %></td>
             <td><%= order_detail.amount %></td>
-            <td><%= ((order_detail.price)*(order_detail.amount)) %> </td>
+            <td><%= ((order_detail.price * 1.08)*(order_detail.amount)).round %> </td>
             <%= form_with model: order_detail, url: admins_order_detail_path(order_detail) do |f| %>
             <td><%= f.select :making_status, OrderDetail.making_statuses.keys.map {|k| [I18n.t("enums.order_detail.making_status.#{k}"), k]} %></td>
             <td><%= f.submit "更新" ,class:"btn btn-primary btn-xs" %></td>
@@ -67,9 +67,9 @@
           <td>商品合計</td>
             <% @sum = 0 %>
             <% @order_details.each do |order_detail| %>
-              <% @sum += ((order_detail.price)*(order_detail.amount)) %>
+              <% @sum += (order_detail.price * order_detail.amount) %>
             <% end %>
-            <td><%= @sum %>円</td>
+            <td><%= (@sum * 1.08).round %>円</td>
           </td>
           </td>
         </tr>
@@ -79,7 +79,7 @@
         </tr>
         <tr>
           <td>請求金額合計</td>
-          <td><%= (@sum+@order.shipping_cost) %>円</td>
+          <td><%= (@sum * 1.08 + @order.shipping_cost).round %>円</td>
         </tr>
       </table>
     </div>
