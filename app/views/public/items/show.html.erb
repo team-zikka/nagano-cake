@@ -24,11 +24,13 @@
                                 <% if @item.is_active == true %>
                                   <h5><strong>¥<%= (@item.price * 1.08).round  %></strong>(税込)</h5><br >
                                 <% elsif @item.is_active == false %>
-                                  <h5>売り切れ中</h5>
+                                  <h5>売り切れ中</h5><br >
                                 <% end %>
                                 <% if customer_signed_in? && @item.is_active == true %>
                                    <%= f.select :amount, options_for_select((1..10).to_a), include_blank: "個数選択" %>&emsp;&emsp;
                                    <%= f.submit "カートに入れる", class: " btn btn-success" %>
+                                <% elsif admin_signed_in? %>
+                                  <%= link_to "編集する", admins_item_path(@item.id), class: " btn btn-success" %>
                                 <% end %>
                             <% end %>
                         </td>
