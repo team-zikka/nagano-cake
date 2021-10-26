@@ -1,6 +1,6 @@
 <div class="cotainer">
-    <div class="row" style="width:90%; margin:0 auto;">
-      <div class="col-md-2 offset-md-1">
+    <div class="row" style="width:90%; margin:20px auto;">
+      <div class="col-md-11">
         <br >
         <h5 style="background-color:#FFF8DC ">&emsp;注文情報確認</h5>
       </div>
@@ -31,21 +31,21 @@
           </tbody>
         </table>
       </div>
-      <div class="table-responsive col-md-4">
+      <div class="table-responsive col-md-3">
         <table class="table table-bordered ">
           <thead class="thead-light">
             <tr>
               <th>送料</th>
-              <td><%= @order.shipping_cost %></td>
+              <td><%= @order.shipping_cost %>&emsp;円</td>
             </tr>
             <tr>
               <th>商品合計</th>
-              <td><%= @sum %></td>
+              <td><%= @sum %>&emsp;円</td>
             </tr>
             <tr>
               <% @order.total_payment = @order.shipping_cost + @sum %>
               <th>請求金額</th>
-              <td><%= @order.total_payment %></td>
+              <td><%= @order.total_payment %>&emsp;円</td>
             </tr>
           </thead>
         </table>

@@ -1,37 +1,49 @@
-<h2>商品編集</h2>
-  <%= form_with model:@item, url: admins_item_path(@item.id),local:true do |f| %>
-    <table>
-      <tr>
-        <th><%= f.label :"商品画像" %></th>
-        <tr><%= f.attachment_field :image, class: "image_id" %></tr>
-      </tr>
-      <tr>
-        <th><%= f.label :"商品名" %></th>
-        <td><%= f.text_field :name %></td>
-      </tr>
-      <tr>
-        <th><%= f.label :"商品説明"%></th>
-        <td><%= f.text_area :introduction %></td>
-      </tr>
-      <tr>
-        <th><%= f.label :"ジャンル"%></th>
-        <td>
-        <%= f.collection_select(:genre_id, Genre.all, :id, :name , prompt: "-- 選択してください --") %>
-        </td>
-      </tr>
-     <tr>
-        <th><%= f.label :"税抜価格" %></th>
-        <td><%= f.text_field :price %></td>
-      </tr>
-      <tr>
-        <th><%= f.label :"販売ステータス" %></th>
-        <td>
-        <%= f.label :is_active, "販売中" %>
-        <%= f.radio_button :is_active, true %>
-        <%= f.label :is_active, "販売停止中" %>
-        <%= f.radio_button :is_active, false %>
-        </td>
-      </tr>
-    </table>
-    <%= f.submit "変更内容保存", class: "btn btn-success" %>
-    <% end %>
+<div class="cotainer">
+    <div class="row" style="width:90%; margin-top:2%; auto;">
+      <div class="col-md-8 offset-md-3">
+        <h5 style="background-color:#FFF8DC ">&emsp;商品編集</h5>
+      </div>
+    </div>
+    <div class="row" style="width:90%; margin:0 auto;">
+      <div class="col-md-9 offset-md-3">
+        <p class="text-danger">&emsp;<%= flash[:warning] %></p>
+      <%= form_with model:@item, url: admins_item_path(@item.id),local:true do |f| %>
+        <table class="table table table-borderless table-spacing: 5px;">
+          <tr>
+            <th><%= f.label :"商品画像" %></th>
+            <td><%= f.attachment_field :image, class: "image_id" %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :"商品名" %></th>
+            <td><%= f.text_field :name %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :"商品説明"%></th>
+            <td><%= f.text_area :introduction %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :"ジャンル"%></th>
+            <td>
+              <%= f.collection_select(:genre_id, Genre.all, :id, :name , prompt: "-- 選択してください --") %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= f.label :"税抜価格" %></th>
+            <td><%= f.text_field :price %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :"販売ステータス" %></th>
+            <td>
+             <%= f.radio_button :is_active, true %>
+             <%= f.label :is_active, "販売中" %>&emsp;
+             <%= f.radio_button :is_active, false %>
+             <%= f.label :is_active, "販売停止中" %>
+            </td>
+          </tr>
+        </table>
+        <div style="width:70%; margin:2% auto;">
+          <%= f.submit "変更内容保存", class:"btn btn-success" %>
+        </div>
+      <% end %>
+    </div>
+  </div>

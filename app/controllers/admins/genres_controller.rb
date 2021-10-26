@@ -11,7 +11,7 @@ class Admins::GenresController < ApplicationController
    if @genre.save
     redirect_to admins_genres_path
    else
-    flash[:waning] = "※ジャンル名を入力してください"
+    flash[:warning] = "※ジャンル名を入力してください"
     redirect_to admins_genres_path
    end
   end

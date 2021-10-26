@@ -10,6 +10,7 @@ class Public::OrdersController < ApplicationController
     else
       @order = Order.new
     end
+    @addresses = Address.where(customer_id: current_customer.id)
   end
 
   def confirm
@@ -35,6 +36,7 @@ class Public::OrdersController < ApplicationController
     end
 
     if @order.postal_code.blank? || @order.address.blank? || @order.name.blank?
+      flash[:warning] = "※郵便番号・住所・宛名のすべてに入力してください"
       redirect_to new_order_path
     end
 
@@ -62,7 +64,7 @@ class Public::OrdersController < ApplicationController
 
   def index
     @customer = current_customer
-		@orders = @customer.orders.page(params[:page]).per(5)
+		@orders = @customer.orders.page(params[:page]).per(5).reverse_order
   end
 
   def show
