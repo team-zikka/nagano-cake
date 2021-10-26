@@ -9,7 +9,7 @@
 　　<div class="row" style="width:90%; margin:0 auto;">
       <div class="table-responsive col-md-11">
         <div style="margin-left:85%;">
-          <%= link_to "カートを空にする", destroy_all_cart_items_path, method: :delete, class: "btn btn-sm btn-danger" %>
+          <%= link_to "カートを空にする", destroy_all_cart_items_path, method: :delete, data: { confirm: 'カートを空にしますか？' }, class: "btn btn-sm btn-danger" %>
         </div>
         <table class="table table-bordered ">
           <thead class="thead-light">
