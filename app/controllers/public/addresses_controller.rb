@@ -18,6 +18,7 @@ class Public::AddressesController < ApplicationController
     if @address.save
       redirect_to addresses_path
     else
+      flash[:warning] = "※すべての項目を入力してください"
       render("public/addresses/index")
     end
   end
@@ -27,6 +28,7 @@ class Public::AddressesController < ApplicationController
     if @address.update(address_params)
       redirect_to addresses_path
     else
+      flash[:warning] = "※すべての項目を入力してください"
       render("public/addresses/edit")
     end
   end

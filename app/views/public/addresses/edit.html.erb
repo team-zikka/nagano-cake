@@ -2,12 +2,7 @@
   <div class="row">
     <div class="col-md-12">
       <h2 class="mt-4 bg-light w-25 text-center">配送先</h2>
-      <% if @address.errors.any? %>
-        <%= @address.errors.count %>Please writing<br>
-        <% @address.errors.full_messages.each do |message| %>
-          <%= message %>
-        <% end %>
-      <% end %>
+      <p class="text-danger">&emsp;<%= flash[:warning] %></p>
       <%= form_with model: @address, url: address_path(@address), local:true do |f| %>
       <table>
         <div class="form-group row">

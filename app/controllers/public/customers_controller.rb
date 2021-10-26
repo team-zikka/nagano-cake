@@ -15,6 +15,7 @@ class Public::CustomersController < ApplicationController
     if @customer.update(customer_params)
        redirect_to my_page_path
     else
+      flash[:warning] = "※すべての項目を入力してください"
       render("public/customers/edit")
     end
   end

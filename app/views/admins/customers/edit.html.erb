@@ -2,12 +2,7 @@
   <div class="row">
     <div class="col-md-10">
       <h2 class="mt-4 bg-light w-50 text-center"><%= @customer.full_name %>さんの会員情報編集</h2>
-      <% if @customer.errors.any? %>
-        <%= @customer.errors.count %>Please writing<br>
-        <% @customer.errors.full_messages.each do |message| %>
-          <%= message %>
-        <% end %>
-      <% end %>
+      <p class="text-danger">&emsp;<%= flash[:warning] %></p>
       <%= form_with model: @customer, url: admins_customer_path, local:true do |f| %>
         <table>
 　        <div class="form-group row">
