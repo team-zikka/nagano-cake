@@ -12,9 +12,6 @@
       <tr>
         <td colspan="3"><%= genre.name %></td>
         <td></td>
-        <% if admin_signed_in? %>
-        <td><%= link_to "編集する", edit_admins_genre_path(genre.id), class:"btn btn-success" %></td>
-        <% end %>
       </tr>
     <% end %>
     </tbody>
