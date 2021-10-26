@@ -1,20 +1,18 @@
 <div class="cotainer">
-  <div class="row">
-    <h1 class="col-md-12  text-center">About</h1>
-  </div>
-
-   <div class="row">
-<h3>ジャンル一覧・追加</h3>
-<div>
-<%= form_with model: @genre, url: admins_genres_path, local:true do |f| %>
-    <div class="form-group">
-      <label>ジャンル名</label>
-      <%= f.text_field :name, class: "form-control genre-name", placeholder:"ジャンル名" %>　<%= f.submit '新規登録' %>
+    <div class="row" style="width:90%; margin-top:5%; auto;">
+      <div class="col-md-11 offset-md-1">
+        <h5 style="background-color:#FFF8DC ">&emsp;ジャンル一覧</h5>
+      </div>
+  　   <div class="col-md-10 offset-md-1">
+     　  <%= form_with model: @genre, url: admins_genres_path, local:true do |f| %>
+        　<th>ジャンル名</th>
+     　  　<%= f.text_field :name, class:"col-xs-5", placeholder:"ジャンル名" %>
+     　  　<%= f.submit '新規登録', class:"btn btn-success"%>
+  　 　   <% end %>
+        <p class="text-danger">&emsp;<%= flash[:warning] %></p>
+  　   </div>
+      <div class="col-md-4 offset-md-1">
+        <%= render "admins/genres/genre_list", genres: @genres %>
+      </div>
     </div>
-
-<% end %>
-</div>
-
-<div class="col-md-8 offset-md-1">
-    <%= render 'admins/genres/genre_list', genres: @genres %>
 </div>

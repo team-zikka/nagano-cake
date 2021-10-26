@@ -1,50 +1,66 @@
-<h2>注文確認画面</h2>
-<div class="col-md-10 offset-md-1">
-    <table class="table table-hover table-inverse">
-      <thead>
-        <tr>
-         <th>商品名</th>
-         <th>単価(税込)</th>
-         <th>数量</th>
-         <th>小計</th>
-        </tr>
-      </thead>
-      <% @sum = 0 %>
-      <% @cart_item.each do |cart_item| %>
-      <tbody>
-        <td><%= cart_item.item.name %></td>
-        <td><%= (cart_item.item.price * 1.08).round %></td>
-        <td><%= cart_item.amount.to_i %></td>
-        <td><%= (cart_item.item.price * 1.08 * cart_item.amount).round %></td>
-        <% @sum += (cart_item.item.price * 1.08 * cart_item.amount).round %>
-      <% end %>
-
-    </table>
-    <table>
-      <thead>
-        <tr>
-         <th>送料</th>
-         <th><%= @order.shipping_cost %></th>
-         <th>商品合計</th>
-          <th><%= @sum %></th>
-          <% @order.total_payment = 800 + @sum %>
-           <th>請求金額</th>
-          <th><%= @order.total_payment %></th>
-
-       </tr>
-     </thead>
-    </table>
-
-    <div>
-        <h3>支払方法</h3>
-        <%= @order.payment_method_i18n %>
-
+<div class="cotainer">
+    <div class="row" style="width:90%; margin:20px auto;">
+      <div class="col-md-11">
+        <br >
+        <h5 style="background-color:#FFF8DC ">&emsp;注文情報確認</h5>
+      </div>
     </div>
-    <div>
-        <h3>お届け先</h3>
-        <%= @order.postal_code %>
-        <%= @order.address %><br >
-        <%= @order.name %>
+　　<div class="row" style="width:90%; margin:0 auto;">
+      <div class="table-responsive col-md-8">
+        <table class="table table-bordered ">
+          <thead class="thead-light">
+            <tr>
+             <th>商品名</th>
+             <th>単価(税込)</th>
+             <th>数量</th>
+             <th>小計</th>
+            </tr>
+          </thead>
+          <% @sum = 0 %>
+          <% @cart_item.each do |cart_item| %>
+          <tbody>
+            <td>
+             <%= attachment_image_tag(cart_item.item, :image, size: "80x70") %>
+             <%= cart_item.item.name %>
+            </td>
+            <td><%= (cart_item.item.price * 1.08).round %></td>
+            <td><%= cart_item.amount.to_i %></td>
+            <td><%= (cart_item.item.price * 1.08 * cart_item.amount).round %></td>
+            <% @sum += (cart_item.item.price * 1.08 * cart_item.amount).round %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-responsive col-md-3">
+        <table class="table table-bordered ">
+          <thead class="thead-light">
+            <tr>
+              <th>送料</th>
+              <td><%= @order.shipping_cost %>&emsp;円</td>
+            </tr>
+            <tr>
+              <th>商品合計</th>
+              <td><%= @sum %>&emsp;円</td>
+            </tr>
+            <tr>
+              <% @order.total_payment = @order.shipping_cost + @sum %>
+              <th>請求金額</th>
+              <td><%= @order.total_payment %>&emsp;円</td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+
+    <div class="row" style="width:90%; margin:2% auto;">
+      <strong>支払方法</strong>&emsp;
+      <%= @order.payment_method_i18n %>
+    </div>
+    <div class="row" style="width:90%; margin:2% auto;">
+      <strong>お届け先</strong>&emsp;
+      <%= @order.postal_code %>&nbsp;
+      <%= @order.address %><br >
+      &emsp;&nbsp;<%= @order.name %>
     </div>
 
     <%= form_with model: @order, url: orders_path, method: :POST, local: true do |f| %>
@@ -56,7 +72,10 @@
       <%= f.hidden_field :address %>
       <%= f.hidden_field :postal_code %>
       <%= f.hidden_field :status %>
-    <div><%= f.submit "注文を確定する", class: "btn btn-success" %></div>
+
+    <div class="text-center" style="width:90%; margin:2% auto;">
+    <%= f.submit "注文を確定する", class: "btn btn-success" %>
+    </div>
     <% end %>
 
   </div>

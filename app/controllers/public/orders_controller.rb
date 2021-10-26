@@ -1,19 +1,21 @@
 class Public::OrdersController < ApplicationController
 
+  before_action :authenticate_customer!
+
   def new
     @customer = current_customer
     if @customer.cart_items.blank?
-      flash[:warning] = "カートが空です"
+      flash[:warning] = "※カートが空です"
       redirect_to cart_items_path
     else
       @order = Order.new
     end
+    @addresses = Address.where(customer_id: current_customer.id)
   end
 
   def confirm
     @cart_item = current_customer.cart_items
     @order = Order.new(order_params)
-
     #現在の登録住所
     if params[:order][:address_option] == "0"
       @order.postal_code = current_customer.postal_code
@@ -31,8 +33,11 @@ class Public::OrdersController < ApplicationController
       @order.postal_code = params[:order][:postal_code]
       @order.address = params[:order][:address]
       @order.name = params[:order][:name]
-    else
-      render new_order_path
+    end
+
+    if @order.postal_code.blank? || @order.address.blank? || @order.name.blank?
+      flash[:warning] = "※郵便番号・住所・宛名のすべてに入力してください"
+      redirect_to new_order_path
     end
 
     @order.shipping_cost = 800
@@ -43,8 +48,6 @@ class Public::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
     @order.save
-
-
     cart_items = current_customer.cart_items
      cart_items.each do |cart_item|
         @order_detail = OrderDetail.new
@@ -61,7 +64,7 @@ class Public::OrdersController < ApplicationController
 
   def index
     @customer = current_customer
-		@orders = @customer.orders
+		@orders = @customer.orders.page(params[:page]).per(5).reverse_order
   end
 
   def show

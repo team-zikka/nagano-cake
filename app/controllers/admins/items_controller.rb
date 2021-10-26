@@ -1,18 +1,19 @@
 class Admins::ItemsController < ApplicationController
-
+ before_action :authenticate_admin!
   def new
     @item = Item.new
   end
 
   def index
-    @items = Item.all
+    @items = Item.page(params[:page])
   end
 
   def create
     @item = Item.new(item_params)
-    if @item.save!
+    if @item.save
       redirect_to admins_item_path(@item)
     else
+      flash[:warning] = "※すべての項目を入力してください"
       render :new
     end
   end
@@ -30,6 +31,7 @@ class Admins::ItemsController < ApplicationController
     if @item.update(item_params)
       redirect_to admins_item_path
     else
+      flash[:warning] = "※すべての項目を入力してください"
       render :edit
     end
   end

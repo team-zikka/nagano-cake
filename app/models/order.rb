@@ -5,7 +5,7 @@ class Order < ApplicationRecord
   has_many :items, through: :order_details
   has_many :order_details
 
-  validates :postal_code, format:{with: /\A\d{7}\z/}
+  validates :postal_code, format:{with: /\A\d{7}\z/}, presence: true
   validates :address, presence: true
   validates :name, presence: true
   validates :shipping_cost, presence: true
