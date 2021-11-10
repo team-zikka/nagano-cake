@@ -1,0 +1,20 @@
+<div class="cotainer">
+    <div class="row" style="width:90%; margin:5% 0%; auto;">
+      <div class="col-md-11 offset-md-1">
+        <h5 style="background-color:#FFF8DC ">&emsp;ジャンル編集</h5>
+      </div>
+    </div>
+    <br >
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <%= form_with model: @genre, url: admins_genre_path, local:true do |f| %>
+          <div class="form-group">
+          　<th>ジャンル名</th>
+       　  　<%= f.text_field :name, class:"col-xs-5", placeholder:"ジャンル名" %>
+       　  　<%= f.submit '変更を保存', class:"btn btn-success"%>
+      　  </div>
+        <% end %>
+        <p class="text-danger">&emsp;<%= flash[:warning] %></p><br >
+      </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="cotainer">
+    <div class="row" style="width:90%; margin:10% auto;">
+        <div class="col-md-3 offset-md-1">
+         <%#= form_with model:@item, url: admins_item_path(@item.id),local:true do |f| %>
+         <%= attachment_image_tag(@item, :image, size: "200x200" ) %>
+        </div>
+        <div class="col-md-6 offset-md-1">
+           <table class="table table table-borderless table-spacing: 10px;">
+               <thead>
+                    <tr>
+                       <td>
+                          <h3><%= @item.name %></h3>
+                       </td>
+                    </tr>
+                    <tr>
+                        <td>
+                           <h6><%= @item.introduction %></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                           <%= form_with model: @cart_item, url: cart_items_path(@item.id) do |f| %>
+                           <%= f.hidden_field :item_id, value: @item.id %>
+                                <% if @item.is_active == true %>
+                                  <h5><strong>¥<%= (@item.price * 1.08).round  %></strong>(税込)</h5><br >
+                                <% elsif @item.is_active == false %>
+                                  <h5>売り切れ中</h5>
+                                <% end %>
+                                <% if customer_signed_in? && @item.is_active == true %>
+                                   <%= f.select :amount, options_for_select((1..10).to_a), include_blank: "個数選択" %>&emsp;&emsp;
+                                   <%= f.submit "カートに入れる", class: " btn btn-success" %>
+                                <% end %>
+                            <% end %>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+      </div>
+    </div>
+   </div>
+ </div>

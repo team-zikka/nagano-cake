@@ -1,0 +1,25 @@
+<div class="card col-sm-3 mx-auto mt-3">
+  <div class="card-body">
+    <h3 class="mt-1 mb-3">ログイン</h3>
+    <%= render "customer/shared/error_messages", resource: @customer %>
+    <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+      <%= link_to "会員登録がお済でない方はこちらから新規登録を行ってください", new_customer_registration_path %>
+    <% end %>
+    <%= form_with model: resource, url: customer_session_path(resource), local: true do |f| %>
+
+      <div class="form-group">
+        <%= f.label :メールアドレス, :class => "form-label" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :パスワード, :class => "form-label" %>
+        <%= f.password_field :password, autocomplete: "current-password", :class => "form-control" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "ログイン", :class => "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

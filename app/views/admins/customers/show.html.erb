@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+      <h2 class="mt-4 bg-light w-50 text-center"><%= @customer.full_name %>さんの会員詳細</h2>
+        <table class="table table-bordered">
+          <colgroup>
+            <col class="col-md-2">
+            <col class="col-md-6">
+          </colgroup>
+          <tr>
+            <th>会員ID</th>
+            <td><%= @customer.id %></td>
+          </tr>
+          <tr>
+　          <th>氏名</th>
+　          <td><%= @customer.last_name %> <%= @customer.first_name %></td>
+　        </tr>
+          <tr>
+　          <th>フリガナ</th>
+　          <td><%= @customer.last_name_kana %> <%= @customer.first_name_kana %></td>
+　        </tr>
+　        <tr>
+　          <th>郵便番号</th>
+　          <td><%= @customer.postal_code %></td>
+　        </tr>
+　        <tr>
+　          <th>住所</th>
+　          <td><%= @customer.address %></td>
+　        </tr>
+　        <tr>
+　          <th>電話番号</th>
+　          <td><%= @customer.telephone_number %></td>
+　        </tr>
+　        <tr>
+　          <th>メールアドレス</th>
+　          <td><%= @customer.email %></td>
+　        </tr>
+　        <tr>
+            <th>会員ステータス</th>
+            <td>
+              <% if @customer.is_daleted == false %>
+                <p class="text-success">有効</p>
+              <% elsif @customer.is_daleted == true %>
+                <p>退会</p>
+              <% end %>
+            </td>
+          </tr>
+　      </table>
+　      <table>
+　        <tr>
+　          <th></th>
+　          <th>
+　            <%= link_to "編集する", edit_admins_customer_path(@customer.id), class:"btn btn-success" %>
+　          </th>
+　          <th>
+　            <%= link_to "注文履歴一覧を見る", admins_root_path, class:"btn btn-primary" %>
+　          </th>
+　        </tr>
+　      </table>
+　   </div>
+　</div>
+</div>

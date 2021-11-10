@@ -13,3 +13,45 @@
  *= require_tree .
  *= require_self
  */
+@import "bootstrap";
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap');
+
+html {
+  height: 100%;
+}
+
+body{
+  height: 100%;
+  font-family: 'Kosugi Maru', sans-serif;
+}
+
+main {
+  padding-bottom: 60px;
+}
+
+
+// #content {
+//   padding-top: 30px;
+//   padding-bottom: 60px;
+// }
+
+footer {
+  width: 100%;
+  height: 60px;
+  background-color: #edb100;
+  bottom: 0;
+}
+
+.navbar-toggler{
+  border-color: #000000;
+}
+
+.navbar-toggler{
+  background-color: #edb100;
+}
+
+.pagination {
+  justify-content: center;
+}
